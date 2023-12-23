@@ -3,20 +3,18 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/projects/practice
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: a
+    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: mysql
 
   jpa:
     hibernate:
       ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
     show_sql: true
     properties:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
-
-  h2:
-    console:
-      enabled: true
