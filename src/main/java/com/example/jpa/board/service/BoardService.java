@@ -23,7 +23,7 @@ public class BoardService {
 
     @Transactional
     public void createBoard(BoardCreateRequest boardCreateRequest) {
-        boardRepository.save(Board.of(boardCreateRequest, memberService.findMember(boardCreateRequest.getId())));
+        boardRepository.save(Board.of(boardCreateRequest, memberService.checkExist(boardCreateRequest.getId())));
     }
 
     @Transactional(readOnly = true)
@@ -47,9 +47,10 @@ public class BoardService {
         targetBoard.update(boardUpdateRequest);
     }
 
-    private Board checkExist(Long id) {
+    public Board checkExist(Long id) {
         Board targetBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("게시판이 존재하지 않습니다."));
         return targetBoard;
     }
+
 }

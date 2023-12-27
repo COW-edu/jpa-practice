@@ -2,6 +2,7 @@ package com.example.jpa.member.domain;
 
 import com.example.jpa.board.domain.Board;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
+import com.example.jpa.reply.domain.Reply;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,6 +29,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Reply> replyList = new ArrayList<>();
 
     @Builder
     public Member(Long id, String name, int age, String phoneNumber) {

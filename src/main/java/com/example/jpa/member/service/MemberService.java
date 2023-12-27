@@ -47,13 +47,10 @@ public class MemberService {
         memberRepository.delete(checkExist(id));
     }
 
-    private Member checkExist(Long id) {
+    public Member checkExist(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
         return member;
     }
 
-    public Member findMember(Long id) {
-        return memberRepository.findById(id).get();
-    }
 }
