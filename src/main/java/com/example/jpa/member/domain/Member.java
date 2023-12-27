@@ -1,14 +1,16 @@
 package com.example.jpa.member.domain;
 
+import com.example.jpa.board.domain.Board;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,13 +19,15 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
-
     private int age;
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Board> boardList = new ArrayList<>();
 
     @Builder
     public Member(Long id, String name, int age, String phoneNumber) {

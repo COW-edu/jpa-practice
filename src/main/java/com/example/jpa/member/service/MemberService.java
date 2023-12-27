@@ -28,9 +28,7 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberResponse findOne(Long id) {
-        Member member = checkExist(id);
-
-        return MemberResponse.from(member);
+        return MemberResponse.from(checkExist(id));
     }
 
     @Transactional(readOnly = true)
@@ -46,13 +44,16 @@ public class MemberService {
 
     @Transactional
     public void deleteMember(Long id) {
-        Member targetMember = checkExist(id);
-        memberRepository.delete(targetMember);
+        memberRepository.delete(checkExist(id));
     }
 
     private Member checkExist(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
         return member;
+    }
+
+    public Member findMember(Long id) {
+        return memberRepository.findById(id).get();
     }
 }
