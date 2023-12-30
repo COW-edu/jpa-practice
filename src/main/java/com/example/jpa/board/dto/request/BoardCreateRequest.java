@@ -1,5 +1,6 @@
 package com.example.jpa.board.dto.request;
 
+import com.example.jpa.member.domain.Member;
 import jakarta.persistence.Column;
 import lombok.Getter;
 

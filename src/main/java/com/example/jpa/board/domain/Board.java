@@ -34,6 +34,14 @@ public class Board {
     private String content;
     private LocalDate date;
 
+//    @Builder
+//    public Board(Member member, String title, String content, LocalDate date) {
+//        this.member = member;
+//        this.title = title;
+//        this.content = content;
+//        this.date = date;
+//    }
+
     public static Board of(BoardCreateRequest boardCreateRequest, Member member) {
         return Board.builder()
                 .member(member)

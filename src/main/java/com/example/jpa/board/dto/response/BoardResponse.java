@@ -10,20 +10,21 @@ import java.time.LocalDate;
 public class BoardResponse {
 
     private Long id;
-    private Member member;
+    private String memberName;
 
     private String title;
     private String content;
     private LocalDate date;
 
-    public BoardResponse(Long id, String title, String content, LocalDate date) {
+    public BoardResponse(Long id, String memberName, String title, String content, LocalDate date) {
         this.id = id;
+        this.memberName = memberName;
         this.title = title;
         this.content = content;
         this.date = date;
     }
 
     public static BoardResponse from(Board board) {
-        return new BoardResponse(board.getId(), board.getTitle(), board.getContent(), board.getDate());
+        return new BoardResponse(board.getId(), board.getMember().getName(), board.getTitle(), board.getContent(), board.getDate());
     }
 }

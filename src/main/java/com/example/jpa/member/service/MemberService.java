@@ -23,6 +23,7 @@ public class MemberService {
 
     @Transactional
     public void create(MemberCreateRequest memberCreateRequest) {
+        checkDuplicate(memberCreateRequest);
         memberRepository.save(memberCreateRequest.toEntity());
     }
 
@@ -51,6 +52,17 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
         return member;
+    }
+
+    private void checkDuplicate(MemberCreateRequest request) {
+        Member member = memberRepository.findByName(request.getName());
+        if(member != null) {
+            if(member.getPhoneNumber().equals(request.getPhoneNumber())) {
+                throw new NullPointerException("이미 가입한 사용자입니다.");
+            }
+
+        }
+
     }
 
 }
