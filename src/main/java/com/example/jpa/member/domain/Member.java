@@ -25,7 +25,7 @@ public class Member {
         this.name = name;
     }
 
-    void update(String name) {
+    public void update(String name) {
         this.name = name;
     }
 }
