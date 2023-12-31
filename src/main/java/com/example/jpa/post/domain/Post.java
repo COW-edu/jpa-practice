@@ -1,11 +1,15 @@
 package com.example.jpa.post.domain;
 
+import com.example.jpa.comment.domain.Comment;
 import com.example.jpa.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +26,9 @@ public class Post {
 
     private String title;
     private String content;
+
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Post(Member member, String title, String content) {
