@@ -1,4 +1,4 @@
-package com.example.jpa.member.domain;
+package com.example.jpa.comment.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,20 +12,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
-
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String content;
 
     @Builder
-    public Member(String name) {
-        this.name = name;
+    public Comment(String content) {
+        this.content = content;
     }
 
-    public void update(String name) {
-        this.name = name;
+    void update(String content) {
+        this.content = content;
     }
 }
