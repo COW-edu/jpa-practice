@@ -25,7 +25,7 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findOne(@PathVariable("id") Long id) {
+    public ResponseEntity<MemberResponse> findOne(@PathVariable("id") Long id) {
         MemberResponse memberResponse = memberService.findOne(id);
         return ResponseEntity.ok(memberResponse);
     }
@@ -42,7 +42,8 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<MemberResponse> deleteMember(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable("id") Long id) {
         memberService.deleteMember(id);
         return ResponseEntity.ok().build();
     }

@@ -9,10 +9,4 @@ public class MemberUpdateRequest {
 
     private Long id;
     private String name;
-
-    public Member toEntity() {
-        return Member.builder()
-                .name(this.name)
-                .build();
-    }
 }
