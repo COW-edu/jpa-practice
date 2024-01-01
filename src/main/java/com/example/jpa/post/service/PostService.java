@@ -5,6 +5,7 @@ import com.example.jpa.member.domain.Member;
 import com.example.jpa.post.domain.Post;
 import com.example.jpa.post.dto.request.PostCreateRequest;
 import com.example.jpa.post.dto.request.PostUpdateRequest;
+import com.example.jpa.post.dto.response.PostAllResponse;
 import com.example.jpa.post.dto.response.PostResponse;
 import com.example.jpa.repository.CommentRepository;
 import com.example.jpa.repository.MemberRepository;
@@ -35,7 +36,10 @@ public class PostService {
     public PostResponse findOne(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("게시글이 존재하지 않습니다."));
-        List<Comment> comments = commentRepository.findAll().stream().toList();
+        List<String> comments = commentRepository.findByPostID(id)
+                .stream()
+                .map(Comment::getContent)
+                .collect(Collectors.toList());
 
         return PostResponse.from(post, post.getMember().getName(), comments);
     }
@@ -53,9 +57,9 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> findAll() {
+    public List<PostAllResponse> findAll() {
         return postRepository.findAll().stream()
-                .map(PostResponse::from)
+                .map(PostAllResponse::from)
                 .collect(Collectors.toList());
     }
 }

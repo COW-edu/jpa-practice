@@ -1,11 +1,14 @@
 package com.example.jpa.comment.controller;
 
 import com.example.jpa.comment.dto.request.CommentCreateRequest;
+import com.example.jpa.comment.dto.request.CommentUpdateRequest;
 import com.example.jpa.comment.dto.response.CommentResponse;
 import com.example.jpa.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/comments")
@@ -28,5 +31,29 @@ public class CommentController {
         CommentResponse commentResponse = commentService.findOne(id);
 
         return ResponseEntity.ok(commentResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody CommentUpdateRequest commentUpdateRequest) {
+
+        commentService.update(id, commentUpdateRequest);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+
+        commentService.delete(id);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List> findAll() {
+
+        List<CommentResponse> commentResponses = commentService.findAll();
+
+        return ResponseEntity.ok(commentResponses);
     }
 }

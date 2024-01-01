@@ -27,11 +27,18 @@ public class Comment {
     private String content;
 
     @Builder
-    public Comment(String content) {
+    public Comment(Member member, Post post, String content) {
+        this.member = member;
+        this.post = post;
         this.content = content;
     }
 
-    void update(String content) {
+    public Comment(Member member, String content) {
+        this.member = member;
+        this.content = content;
+    }
+
+    public void update(String content) {
         this.content = content;
     }
 }

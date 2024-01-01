@@ -2,6 +2,7 @@ package com.example.jpa.post.controller;
 
 import com.example.jpa.post.dto.request.PostCreateRequest;
 import com.example.jpa.post.dto.request.PostUpdateRequest;
+import com.example.jpa.post.dto.response.PostAllResponse;
 import com.example.jpa.post.dto.response.PostResponse;
 import com.example.jpa.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,7 @@ public class PostController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<PostResponse> update(@PathVariable("id") Long id, @RequestBody PostUpdateRequest postUpdateRequest) {
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody PostUpdateRequest postUpdateRequest) {
 
         postService.update(id, postUpdateRequest);
 
@@ -42,7 +43,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PostResponse> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 
         postService.delete(id);
 
@@ -52,7 +53,7 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List> findAll() {
 
-        List<PostResponse> postResponses = postService.findAll();
+        List<PostAllResponse> postResponses = postService.findAll();
 
         return ResponseEntity.ok(postResponses);
     }

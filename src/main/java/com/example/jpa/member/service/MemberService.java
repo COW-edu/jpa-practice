@@ -4,13 +4,10 @@ import com.example.jpa.member.domain.Member;
 import com.example.jpa.member.dto.request.MemberCreateRequest;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
 import com.example.jpa.member.dto.response.MemberResponse;
-import com.example.jpa.post.domain.Post;
-import com.example.jpa.post.dto.request.PostUpdateRequest;
 import com.example.jpa.repository.MemberRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
