@@ -14,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
@@ -31,7 +32,7 @@ public class Board {
     @OneToMany
     private List<Reply> replyList = new ArrayList<Reply>();
 
-    @Builder
+
     public Board(Long id, String title, String content, Member member, List<Reply> replyList) {
         this.id = id;
         this.title = title;

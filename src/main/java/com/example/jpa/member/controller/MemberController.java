@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MemberResponse> updateMember(@RequestBody MemberUpdateRequest memberUpdateRequest) {
+    public ResponseEntity<Void> updateMember(@RequestBody MemberUpdateRequest memberUpdateRequest) {
         memberService.updateMember(memberUpdateRequest);
         return ResponseEntity.ok().build();
     }
