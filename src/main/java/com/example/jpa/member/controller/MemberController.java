@@ -1,17 +1,15 @@
 package com.example.jpa.member.controller;
 
 import com.example.jpa.member.dto.request.MemberCreateRequest;
+import com.example.jpa.member.dto.request.MemberUpdateRequest;
 import com.example.jpa.member.dto.response.MemberResponse;
 import com.example.jpa.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/members")
@@ -34,5 +32,29 @@ public class MemberController {
         MemberResponse memberResponse = memberService.findOne(id);
 
         return ResponseEntity.ok(memberResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody MemberUpdateRequest memberUpdateRequest) {
+
+        memberService.update(id, memberUpdateRequest);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+
+        memberService.delete(id);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List> findAll() {
+
+        List<MemberResponse> memberResponses = memberService.findAll();
+
+        return ResponseEntity.ok(memberResponses);
     }
 }
