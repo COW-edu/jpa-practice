@@ -1,5 +1,7 @@
 package com.example.jpa.member.domain;
 
+import com.example.jpa.member.dto.request.MemberUpdateRequest;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,11 +23,11 @@ public class Member {
     private String name;
 
     @Builder
-    public Member(String name) {
+    public Member(Long id, String name) {
         this.name = name;
     }
 
-    void update(String name) {
-        this.name = name;
+    public void update(MemberUpdateRequest memberUpdateRequest) {
+        this.name = memberUpdateRequest.getName();
     }
 }
