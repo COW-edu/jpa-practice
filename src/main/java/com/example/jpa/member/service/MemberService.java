@@ -4,6 +4,7 @@ import com.example.jpa.member.domain.Member;
 import com.example.jpa.member.dto.request.MemberCreateRequest;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
 import com.example.jpa.member.dto.response.MemberResponse;
+import com.example.jpa.repository.BoardRepository;
 import com.example.jpa.repository.MemberRepository;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     @Transactional
     public void create(MemberCreateRequest memberCreateRequest) {

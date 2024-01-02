@@ -4,28 +4,44 @@ import com.example.jpa.board.domain.Board;
 import com.example.jpa.board.dto.request.BoardCreateRequest;
 import com.example.jpa.board.dto.request.BoardUpdateRequest;
 import com.example.jpa.board.dto.response.BoardResponse;
+import com.example.jpa.member.domain.Member;
+import com.example.jpa.member.dto.response.MemberResponse;
+import com.example.jpa.reply.domain.Reply;
 import com.example.jpa.repository.BoardRepository;
+import com.example.jpa.repository.MemberRepository;
+import com.example.jpa.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-
+    private final ReplyRepository replyRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public void create(BoardCreateRequest boardCreateRequest) {
-        boardRepository.save(boardCreateRequest.toEntity());
+        Member member = memberRepository.findById(boardCreateRequest.getMember().getId())
+                .orElseThrow(() -> new NoSuchElementException("멤버가 존재하지 않습니다."));
+
+        boardRepository.save(boardCreateRequest.toEntity(member));
     }
 
     @Transactional(readOnly = true)
     public BoardResponse findOne(Long id) {
         Board board = checkBoard(id);
+
+        List<Reply> replyList = replyRepository.findByBoardId(id);
+        board.setReplyList(replyList);
+
         return BoardResponse.from(board);
     }
 
@@ -51,6 +67,11 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(Long id) {
-        boardRepository.delete(checkBoard(id));
+        Board board = checkBoard(id);
+
+        List<Reply> replyList = replyRepository.findByBoardId(id);
+        board.setReplyList(replyList);
+
+        boardRepository.delete(board);
     }
 }

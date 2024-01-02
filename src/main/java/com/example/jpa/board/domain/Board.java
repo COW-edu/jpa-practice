@@ -4,16 +4,14 @@ import com.example.jpa.board.dto.request.BoardUpdateRequest;
 import com.example.jpa.member.domain.Member;
 import com.example.jpa.reply.domain.Reply;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
@@ -30,7 +28,7 @@ public class Board {
     private Member member;
 
     @OneToMany
-    private List<Reply> replyList = new ArrayList<Reply>();
+    private List<Reply> replyList;
 
 
     public Board(Long id, String title, String content, Member member, List<Reply> replyList) {
