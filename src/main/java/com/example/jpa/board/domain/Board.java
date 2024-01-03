@@ -23,6 +23,7 @@ public class Board {
     private String title;
     private String content;
 
+    private Long member_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
