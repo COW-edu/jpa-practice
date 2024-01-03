@@ -21,6 +21,7 @@ public class Board {
     private Long id;
 
     private String title;
+
     private String body;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
