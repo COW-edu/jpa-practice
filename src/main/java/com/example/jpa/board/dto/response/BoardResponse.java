@@ -1,7 +1,6 @@
 package com.example.jpa.board.dto.response;
 
 import com.example.jpa.board.domain.Board;
-import com.example.jpa.member.domain.Member;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -25,6 +24,6 @@ public class BoardResponse {
     }
 
     public static BoardResponse from(Board board) {
-        return new BoardResponse(board.getId(), board.getMember().getName(), board.getTitle(), board.getContent(), board.getDate());
+        return new BoardResponse(board.getId(), board.getWriter().getName(), board.getTitle(), board.getContent(), board.getDate());
     }
 }

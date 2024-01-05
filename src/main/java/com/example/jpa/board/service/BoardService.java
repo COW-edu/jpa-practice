@@ -5,6 +5,7 @@ import com.example.jpa.board.dto.request.BoardCreateRequest;
 import com.example.jpa.board.dto.request.BoardUpdateRequest;
 import com.example.jpa.board.dto.response.BoardResponse;
 import com.example.jpa.board.repository.BoardRepository;
+import com.example.jpa.member.domain.Member;
 import com.example.jpa.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -23,15 +25,14 @@ public class BoardService {
 
     @Transactional
     public void createBoard(BoardCreateRequest boardCreateRequest) {
-        boardRepository.save(Board.of(boardCreateRequest, memberService.checkExist(boardCreateRequest.getId())));
+        Member targetMember = memberService.checkExist(boardCreateRequest.getId());
+        boardRepository.save(boardCreateRequest.toEntity(targetMember));
     }
 
-    @Transactional(readOnly = true)
     public BoardResponse retrieveBoardById(Long id) {
         return BoardResponse.from(checkExist(id));
     }
 
-    @Transactional(readOnly = true)
     public List<BoardResponse> retrieveBoards() {
         return boardRepository.findAll().stream().map(BoardResponse::from).collect(Collectors.toList());
     }

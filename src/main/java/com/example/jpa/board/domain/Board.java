@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
+
+    // @Builder - 생성자를 통해 반환하기 때문에 필요 X
+    // @Setter - update 메서드를 통해 수정하기 때문에 필요 X
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
@@ -25,7 +25,7 @@ public class Board {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member writer;
 
     @OneToMany(mappedBy = "board", orphanRemoval = true)
     private List<Reply> replyList = new ArrayList<>();
@@ -34,22 +34,22 @@ public class Board {
     private String content;
     private LocalDate date;
 
-//    @Builder
-//    public Board(Member member, String title, String content, LocalDate date) {
-//        this.member = member;
-//        this.title = title;
-//        this.content = content;
-//        this.date = date;
-//    }
-
-    public static Board of(BoardCreateRequest boardCreateRequest, Member member) {
-        return Board.builder()
-                .member(member)
-                .title(boardCreateRequest.getTitle())
-                .content(boardCreateRequest.getContent())
-                .date(LocalDate.now())
-                .build();
+    @Builder
+    public Board(Member writer, String title, String content, LocalDate date) {
+        this.writer = writer;
+        this.title = title;
+        this.content = content;
+        this.date = date;
     }
+
+//    public static Board of(BoardCreateRequest boardCreateRequest, Member writer) {
+//        return Board.builder()
+//                .writer(writer)
+//                .title(boardCreateRequest.getTitle())
+//                .content(boardCreateRequest.getContent())
+//                .date(LocalDate.now())
+//                .build();
+//    }
 
     public void update(BoardUpdateRequest boardUpdateRequest) {
         this.title = boardUpdateRequest.getTitle();

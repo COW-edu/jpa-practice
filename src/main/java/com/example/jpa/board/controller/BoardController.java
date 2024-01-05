@@ -1,7 +1,7 @@
 package com.example.jpa.board.controller;
 
-import com.example.jpa.board.dto.request.BoardCreateRequest;
 import com.example.jpa.board.dto.request.BoardUpdateRequest;
+import com.example.jpa.board.dto.request.BoardCreateRequest;
 import com.example.jpa.board.dto.response.BoardResponse;
 import com.example.jpa.board.service.BoardService;
 import lombok.RequiredArgsConstructor;

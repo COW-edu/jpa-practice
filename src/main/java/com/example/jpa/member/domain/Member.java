@@ -1,14 +1,11 @@
 package com.example.jpa.member.domain;
 
 import com.example.jpa.board.domain.Board;
+import com.example.jpa.exception.DuplicateMemberException;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
 import com.example.jpa.reply.domain.Reply;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +24,7 @@ public class Member {
     private int age;
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    @OneToMany(mappedBy = "writer", orphanRemoval = true)
     private List<Board> boardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", orphanRemoval = true)
@@ -44,5 +41,11 @@ public class Member {
         this.name = memberUpdateRequest.getName();
         this.age = memberUpdateRequest.getAge();
         this.phoneNumber = memberUpdateRequest.getPhoneNumber();
+    }
+
+    public void hasSamePhoneNumber(String phoneNumber) throws DuplicateMemberException {
+        if(this.phoneNumber.equals(phoneNumber)) {
+            throw new DuplicateMemberException("이미 가입한 사용자입니다.");
+        }
     }
 }

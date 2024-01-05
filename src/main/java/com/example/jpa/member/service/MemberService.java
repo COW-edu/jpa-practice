@@ -1,5 +1,6 @@
 package com.example.jpa.member.service;
 
+import com.example.jpa.exception.DuplicateMemberException;
 import com.example.jpa.member.domain.Member;
 import com.example.jpa.member.dto.request.MemberCreateRequest;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
@@ -8,10 +9,10 @@ import com.example.jpa.member.repository.MemberRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,13 +56,14 @@ public class MemberService {
     }
 
     private void checkDuplicate(MemberCreateRequest request) {
-        Member member = memberRepository.findByName(request.getName());
-        if(member != null) {
-            if(member.getPhoneNumber().equals(request.getPhoneNumber())) {
-                throw new NullPointerException("이미 가입한 사용자입니다.");
+        Optional<Member> member = memberRepository.findByName(request.getName());
+        member.ifPresent(m -> {
+            try {
+                m.hasSamePhoneNumber(request.getPhoneNumber());
+            } catch (DuplicateMemberException e) {
+                throw new RuntimeException(e);
             }
-
-        }
+        });
 
     }
 

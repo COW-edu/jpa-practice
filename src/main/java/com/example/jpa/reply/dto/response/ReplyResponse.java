@@ -1,8 +1,5 @@
 package com.example.jpa.reply.dto.response;
 
-import com.example.jpa.board.domain.Board;
-import com.example.jpa.board.dto.response.BoardResponse;
-import com.example.jpa.member.domain.Member;
 import com.example.jpa.reply.domain.Reply;
 import lombok.Getter;
 
