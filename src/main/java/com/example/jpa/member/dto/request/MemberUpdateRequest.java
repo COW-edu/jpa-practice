@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class MemberCreateRequest {
+public class MemberUpdateRequest {
+
+    @NotBlank
+    private Long id;
 
     @NotBlank
     private String name;
@@ -18,6 +21,7 @@ public class MemberCreateRequest {
 
     public Member toEntity() {
         return Member.builder()
+                .id(this.id)
                 .name(this.name)
                 .age(this.age)
                 .phoneNumber(this.phoneNumber)
