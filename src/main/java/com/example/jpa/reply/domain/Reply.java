@@ -6,15 +6,13 @@ import com.example.jpa.reply.dto.request.ReplyCreateRequest;
 import com.example.jpa.reply.dto.request.ReplyUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
 @Entity
-@Setter
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reply {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +30,13 @@ public class Reply {
     private String content;
     private LocalDate date;
 
-    public static Reply of(ReplyCreateRequest replyCreateRequest, Member targetMember, Board targetBoard) {
-        return Reply.builder()
-                .board(targetBoard)
-                .member(targetMember)
-                .content(replyCreateRequest.getContent())
-                .date(LocalDate.now())
-                .build();
+    @Builder
+    public Reply(Member member, Board board, String content, LocalDate date) {
+        this.board = board;
+        this.member = member;
+        this.content = content;
+        this.date = date;
+
     }
 
     public void update(ReplyUpdateRequest replyUpdateRequest) {

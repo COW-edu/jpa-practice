@@ -1,15 +1,17 @@
 package com.example.jpa.board.dto.request;
 
-
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
 public class BoardUpdateRequest {
 
-    @Column(name = "board_id")
+    @NotBlank
     private Long id;
 
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
 }

@@ -1,6 +1,5 @@
 package com.example.jpa.board.domain;
 
-import com.example.jpa.board.dto.request.BoardCreateRequest;
 import com.example.jpa.board.dto.request.BoardUpdateRequest;
 import com.example.jpa.member.domain.Member;
 import com.example.jpa.reply.domain.Reply;
@@ -41,15 +40,6 @@ public class Board {
         this.content = content;
         this.date = date;
     }
-
-//    public static Board of(BoardCreateRequest boardCreateRequest, Member writer) {
-//        return Board.builder()
-//                .writer(writer)
-//                .title(boardCreateRequest.getTitle())
-//                .content(boardCreateRequest.getContent())
-//                .date(LocalDate.now())
-//                .build();
-//    }
 
     public void update(BoardUpdateRequest boardUpdateRequest) {
         this.title = boardUpdateRequest.getTitle();

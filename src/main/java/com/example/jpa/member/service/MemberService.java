@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -28,12 +29,10 @@ public class MemberService {
         memberRepository.save(memberCreateRequest.toEntity());
     }
 
-    @Transactional(readOnly = true)
     public MemberResponse findOne(Long id) {
         return MemberResponse.from(checkExist(id));
     }
 
-    @Transactional(readOnly = true)
     public List<MemberResponse> retrieveMembers() {
         return memberRepository.findAll().stream().map(MemberResponse::from).collect(Collectors.toList());
     }

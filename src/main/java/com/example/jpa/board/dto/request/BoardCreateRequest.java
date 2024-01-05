@@ -2,7 +2,7 @@ package com.example.jpa.board.dto.request;
 
 import com.example.jpa.board.domain.Board;
 import com.example.jpa.member.domain.Member;
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -10,10 +10,13 @@ import java.time.LocalDate;
 @Getter
 public class BoardCreateRequest {
 
-    @Column(name = "user_id")
+    @NotBlank
     private Long id;
 
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
 
     public Board toEntity(Member writer) {

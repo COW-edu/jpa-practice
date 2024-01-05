@@ -29,7 +29,7 @@ public class ReplyService {
     public void createReply(ReplyCreateRequest replyCreateRequest) {
         Member targetMember = memberService.checkExist(replyCreateRequest.getMember_id());
         Board targetBoard = boardService.checkExist(replyCreateRequest.getMember_id());
-        replyRepository.save(Reply.of(replyCreateRequest, targetMember, targetBoard));
+        replyRepository.save(replyCreateRequest.toEntity(targetMember, targetBoard));
     }
 
     @Transactional(readOnly = true)

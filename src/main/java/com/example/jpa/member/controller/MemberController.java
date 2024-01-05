@@ -1,6 +1,5 @@
 package com.example.jpa.member.controller;
 
-import com.example.jpa.exception.DuplicateMemberException;
 import com.example.jpa.member.dto.request.MemberCreateRequest;
 import com.example.jpa.member.dto.request.MemberUpdateRequest;
 import com.example.jpa.member.dto.response.MemberResponse;
